@@ -1,4 +1,18 @@
 {
+  "mappingType": "equivalent",
+  "synonyms": [
+    "book",
+    "novel",
+    "comic",
+    "manual",
+    "ledger",
+    "guide"
+  ]
+}
+
+
+
+{
   "mappings": {
     "dynamic": true
   },
@@ -13,3 +27,5 @@
     }
   ]
 }
+
+
