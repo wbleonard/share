@@ -1,39 +1,15 @@
-exports = function({ query, headers, body}, response) {
-
-  var conn = context.services.get("mongodb-atlas").db("sample_mflix").collection("movies");
-  
-  const decodedQuery = decodeURIComponent(query.query);
-
-  let searchAggregation = [
+{
+  "mappings": {
+    "dynamic": true
+  },
+  "analyzer": "lucene.english",
+  "synonyms": [
     {
-      '$search': {
-        'text': {
-          'path': 'fullplot', 
-          'query': decodedQuery
-        }, 
-        'highlight': {
-          'path': 'fullplot'
-        }
-      }
-    }, {
-      '$limit': 15
-    }, {
-      '$project': {
-        '_id': 0, 
-        'title': 1, 
-        'poster': 1, 
-        'fullplot': 1, 
-        'year': 1, 
-        'score': {
-          '$meta': 'searchScore'
-        }, 
-        'highlight': {
-          '$meta': 'searchHighlights'
-        }
-      }
+      "name": "en_synonyms",
+      "source": {
+        "collection": "my_syns"
+      },
+      "analyzer": "lucene.english"
     }
   ]
-    
-  return conn.aggregate(searchAggregation).toArray();
-
-};
+}
